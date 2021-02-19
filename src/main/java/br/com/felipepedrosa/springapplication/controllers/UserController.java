@@ -1,12 +1,10 @@
 package br.com.felipepedrosa.springapplication.controllers;
 
 import br.com.felipepedrosa.springapplication.entities.User;
-import br.com.felipepedrosa.springapplication.repositories.UserRepository;
+import br.com.felipepedrosa.springapplication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,15 +14,24 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
-
     /**
-     * User repository to perform operations.
+     * Services for entity {@code User}.
      */
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping()
     public ResponseEntity<List<User>> findAllUsers() {
-        return ResponseEntity.ok().body(userRepository.findAll());
+        return ResponseEntity.ok().body(userService.findAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<User> createUser() {
+        return ResponseEntity.ok().body(userService.create());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(userService.findById(id));
     }
 }
