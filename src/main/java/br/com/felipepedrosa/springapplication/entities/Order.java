@@ -1,6 +1,7 @@
 package br.com.felipepedrosa.springapplication.entities;
 
 import br.com.felipepedrosa.springapplication.entities.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class Order extends GenericEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     @Column(nullable = false)
     private Instant moment;
 
@@ -21,7 +23,7 @@ public class Order extends GenericEntity implements Serializable {
     @Column(nullable = false)
     private OrderStatus orderStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", nullable = false)
     private User client;
 

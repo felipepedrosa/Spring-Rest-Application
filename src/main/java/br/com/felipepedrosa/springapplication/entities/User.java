@@ -1,5 +1,7 @@
 package br.com.felipepedrosa.springapplication.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class User extends GenericEntity implements Serializable {
     @Column(nullable = false)
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private final List<Order> orders = new ArrayList<>();
 

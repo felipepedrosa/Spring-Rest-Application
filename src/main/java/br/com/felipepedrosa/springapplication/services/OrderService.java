@@ -1,16 +1,34 @@
 package br.com.felipepedrosa.springapplication.services;
 
 import br.com.felipepedrosa.springapplication.entities.Order;
+import br.com.felipepedrosa.springapplication.entities.User;
+import br.com.felipepedrosa.springapplication.entities.enums.OrderStatus;
+import br.com.felipepedrosa.springapplication.repositories.OrderRepository;
+import br.com.felipepedrosa.springapplication.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
+@Service
 public class OrderService implements GenericService<Order> {
+    @Autowired
+    private OrderRepository repository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Order create(Order entity) {
-        return null;
+        User user = userRepository.findById(1L).get();
+        Order order = new Order(null, Instant.now(), OrderStatus.CANCELED, user);
+
+        return repository.save(order);
+
     }
 
     /**
@@ -34,7 +52,7 @@ public class OrderService implements GenericService<Order> {
      */
     @Override
     public List<Order> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     /**
@@ -42,6 +60,6 @@ public class OrderService implements GenericService<Order> {
      */
     @Override
     public Order findById(long id) {
-        return null;
+        return repository.findById(id).get();
     }
 }

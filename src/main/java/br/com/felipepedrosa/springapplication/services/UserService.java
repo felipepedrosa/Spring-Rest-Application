@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 @Component
 public class UserService implements GenericService<User> {
@@ -28,7 +27,6 @@ public class UserService implements GenericService<User> {
 
     @Override
     public void delete(long id) {
-
     }
 
     @Override
