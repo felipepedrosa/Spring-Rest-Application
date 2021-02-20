@@ -27,7 +27,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser() {
-        return ResponseEntity.ok().body(userService.create());
+        return ResponseEntity.ok().body(userService.create(null));
     }
 
     @GetMapping("/{id}")

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
-public class Order implements Serializable {
+public class Order extends GenericEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
