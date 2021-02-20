@@ -19,9 +19,8 @@ public class Order extends GenericEntity implements Serializable {
     @Column(nullable = false)
     private Instant moment;
 
-    @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
-    private OrderStatus orderStatus;
+    private Integer orderStatus;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", nullable = false)
@@ -33,8 +32,8 @@ public class Order extends GenericEntity implements Serializable {
     public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
-        this.orderStatus = orderStatus;
         this.client = client;
+        setOrderStatus(orderStatus);
     }
 
     public Long getId() {
@@ -62,11 +61,11 @@ public class Order extends GenericEntity implements Serializable {
     }
 
     public OrderStatus getOrderStatus() {
-        return orderStatus;
+        return OrderStatus.valueOf(orderStatus);
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+        this.orderStatus = orderStatus.getCode();
     }
 
     /**

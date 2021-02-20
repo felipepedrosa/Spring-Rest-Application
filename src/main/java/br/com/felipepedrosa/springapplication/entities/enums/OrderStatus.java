@@ -1,21 +1,31 @@
 package br.com.felipepedrosa.springapplication.entities.enums;
 
-import javax.persistence.Enumerated;
+import java.util.Arrays;
 
 public enum OrderStatus {
-    WAITING_PAYMENT(0),
-    PAID(1),
-    SHIPPED(2),
-    DELIVERED(3),
-    CANCELED(4);
+    WAITING_PAYMENT(1),
+    PAID(2),
+    SHIPPED(3),
+    DELIVERED(4),
+    CANCELED(5);
 
-    private final int value;
+    /**
+     * Code of status.
+     */
+    private final int code;
 
-    OrderStatus(int value) {
-        this.value = value;
+    private OrderStatus(int code) {
+        this.code = code;
     }
 
-    public int getValue() {
-        return value;
+    public static OrderStatus valueOf(int code) {
+        return Arrays.stream(OrderStatus.values())
+                .filter(orderStatus -> orderStatus.getCode() == code)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Invalid order status code"));
+    }
+
+    public int getCode() {
+        return code;
     }
 }
