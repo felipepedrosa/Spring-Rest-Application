@@ -2,10 +2,12 @@ package br.com.felipepedrosa.springapplication.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-
 @Entity
+@Table(name = "users")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +24,9 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "client")
+    private final List<Order> orders = new ArrayList<>();
 
     public User() {
     }
@@ -72,6 +77,10 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     /**
