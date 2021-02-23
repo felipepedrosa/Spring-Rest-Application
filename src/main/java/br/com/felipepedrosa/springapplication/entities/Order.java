@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "orders")
@@ -76,6 +77,10 @@ public class Order extends GenericEntity implements Serializable {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus.getCode();
+    }
+
+    public Double getTotal(){
+        return getItems().stream().mapToDouble(OrderItem::getSubTotal).sum();
     }
 
     public Set<OrderItem> getItems() {
