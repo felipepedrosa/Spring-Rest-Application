@@ -1,8 +1,12 @@
 package br.com.felipepedrosa.springapplication.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -13,6 +17,10 @@ public class Category extends GenericEntity implements Serializable {
 
     @Column(nullable = false)
     private String name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
+    private final Set<Product> products = new HashSet<>();
 
     public Category() {
     }
@@ -36,6 +44,10 @@ public class Category extends GenericEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     @Override
