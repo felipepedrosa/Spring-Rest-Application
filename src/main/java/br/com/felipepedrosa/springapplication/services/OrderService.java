@@ -25,7 +25,7 @@ public class OrderService implements GenericService<Order> {
     @Override
     public Order create(Order entity) {
         User user = userRepository.findById(1L).get();
-        Order order = new Order(null, Instant.now(), OrderStatus.CANCELED, user);
+        Order order = new Order(null, Instant.now(), OrderStatus.CANCELED, user, null);
 
         return repository.save(order);
 

@@ -28,17 +28,21 @@ public class Order extends GenericEntity implements Serializable {
     @JoinColumn(name = "client_id", nullable = false)
     private User client;
 
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    private Payment payment;
+
     @OneToMany(mappedBy = "id.order")
     @Column(nullable = false)
-    private final Set<OrderItem> items = new HashSet<>();
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order() {
     }
 
-    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client, Payment payment) {
         this.id = id;
         this.moment = moment;
         this.client = client;
+        this.payment = payment;
         setOrderStatus(orderStatus);
     }
 
@@ -76,6 +80,14 @@ public class Order extends GenericEntity implements Serializable {
 
     public Set<OrderItem> getItems() {
         return items;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     /**
