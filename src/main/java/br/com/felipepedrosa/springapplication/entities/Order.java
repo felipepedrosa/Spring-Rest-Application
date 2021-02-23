@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -22,9 +24,13 @@ public class Order extends GenericEntity implements Serializable {
     @Column(nullable = false)
     private Integer orderStatus;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "client_id", nullable = false)
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    @Column(nullable = false)
+    private final Set<OrderItem> items = new HashSet<>();
 
     public Order() {
     }
@@ -66,6 +72,10 @@ public class Order extends GenericEntity implements Serializable {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus.getCode();
+    }
+
+    public Set<OrderItem> getItems() {
+        return items;
     }
 
     /**

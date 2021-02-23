@@ -1,5 +1,7 @@
 package br.com.felipepedrosa.springapplication.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -34,6 +36,11 @@ public class Product extends GenericEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private final Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.product")
+    @Column(nullable = false)
+    @JsonIgnore
+    private final Set<OrderItem> orderItems = new HashSet<>();
 
     public Product() {
     }
@@ -88,6 +95,10 @@ public class Product extends GenericEntity implements Serializable {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
     @Override
