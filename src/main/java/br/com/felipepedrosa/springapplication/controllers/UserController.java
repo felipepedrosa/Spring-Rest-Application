@@ -44,9 +44,10 @@ public class UserController implements GenericController<User> {
         }
     }
 
+    @PutMapping("/{id}")
     @Override
-    public ResponseEntity<User> update(User entity) {
-        return null;
+    public ResponseEntity<User> update(@PathVariable long id, @RequestBody User body) {
+        return ResponseEntity.ok().body(userService.update(id, body));
     }
 
     @DeleteMapping("/{id}")

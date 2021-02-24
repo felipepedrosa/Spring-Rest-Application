@@ -35,7 +35,7 @@ public class OrderService implements GenericService<Order> {
      * {@inheritDoc}
      */
     @Override
-    public Order update(Order entity) {
+    public Order update(long id, Order entity) {
         return null;
     }
 

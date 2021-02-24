@@ -8,7 +8,7 @@ import java.util.List;
 public interface GenericController<E extends GenericEntity> {
     ResponseEntity<E> create(E entity);
 
-    ResponseEntity<E> update(E entity);
+    ResponseEntity<E> update(long id, E entity);
 
     ResponseEntity<Void> delete(long id);
 

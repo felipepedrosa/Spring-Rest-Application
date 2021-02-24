@@ -18,7 +18,7 @@ public class CategoryService implements GenericService<Category> {
     }
 
     @Override
-    public Category update(Category entity) {
+    public Category update(long id, Category entity) {
         return repository.save(entity);
     }
 

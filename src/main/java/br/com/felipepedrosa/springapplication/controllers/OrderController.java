@@ -32,7 +32,7 @@ public class OrderController implements GenericController<Order> {
      */
     @Override
     @PutMapping
-    public ResponseEntity<Order> update(Order entity) {
+    public ResponseEntity<Order> update(long id, Order entity) {
         return null;
     }
 

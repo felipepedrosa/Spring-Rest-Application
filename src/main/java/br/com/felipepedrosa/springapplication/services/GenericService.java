@@ -15,10 +15,11 @@ public interface GenericService<E extends GenericEntity> {
     /**
      * Updates an entity.
      *
-     * @param entity Updated entity.
+     * @param id Identifier of entity that will to be updated.
+     * @param entity data to update the entity found by id.
      * @return Updated entity.
      */
-    E update(E entity);
+    E update(long id, E entity);
 
     /**
      * Deletes an entity from {@code id}.

@@ -21,9 +21,9 @@ public class CategoryController implements GenericController<Category> {
     }
 
     @Override
-    @PutMapping
-    public ResponseEntity<Category> update(Category entity) {
-        return ResponseEntity.ok().body(service.update(entity));
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> update(@PathVariable long id, Category entity) {
+        return ResponseEntity.ok().body(service.update(id, entity));
     }
 
     @Override
