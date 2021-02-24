@@ -41,7 +41,7 @@ public class OrderController implements GenericController<Order> {
      */
     @Override
     @DeleteMapping
-    public ResponseEntity<Order> delete(long id) {
+    public ResponseEntity<Void> delete(long id) {
         return null;
     }
 

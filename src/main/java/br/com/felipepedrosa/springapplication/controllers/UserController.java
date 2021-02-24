@@ -16,20 +16,22 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/users")
-public class UserController {
+public class UserController implements GenericController<User> {
     /**
      * Services for entity {@code User}.
      */
     @Autowired
     private UserService userService;
 
-    @GetMapping()
-    public ResponseEntity<List<User>> findAllUsers() {
-        return ResponseEntity.ok().body(userService.findAll());
+    @GetMapping("/{id}")
+    @Override
+    public ResponseEntity<User> findById(@PathVariable long id) {
+        return ResponseEntity.ok().body(userService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User body) throws Exception {
+    @Override
+    public ResponseEntity<User> create(@RequestBody User body) {
         try {
             User user = userService.create(body);
 
@@ -42,8 +44,21 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> findUserById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(userService.findById(id));
+    @Override
+    public ResponseEntity<User> update(User entity) {
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    @Override
+    public ResponseEntity<Void> delete(@PathVariable long id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    @Override
+    public ResponseEntity<List<User>> findAll() {
+        return ResponseEntity.ok().body(userService.findAll());
     }
 }

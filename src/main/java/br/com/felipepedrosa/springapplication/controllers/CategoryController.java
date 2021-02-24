@@ -28,7 +28,7 @@ public class CategoryController implements GenericController<Category> {
 
     @Override
     @DeleteMapping
-    public ResponseEntity<Category> delete(long id) {
+    public ResponseEntity<Void> delete(long id) {
         service.delete(id);
         return ResponseEntity.ok().body(null);
     }

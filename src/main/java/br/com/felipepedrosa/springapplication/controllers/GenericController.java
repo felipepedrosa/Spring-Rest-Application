@@ -10,7 +10,7 @@ public interface GenericController<E extends GenericEntity> {
 
     ResponseEntity<E> update(E entity);
 
-    ResponseEntity<E> delete(long id);
+    ResponseEntity<Void> delete(long id);
 
     ResponseEntity<List<E>> findAll();
 

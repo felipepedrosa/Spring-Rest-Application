@@ -27,6 +27,7 @@ public class UserService implements GenericService<User> {
 
     @Override
     public void delete(long id) {
+        userRepository.deleteById(id);
     }
 
     @Override
