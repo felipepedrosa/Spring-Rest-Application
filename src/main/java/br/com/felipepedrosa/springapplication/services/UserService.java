@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Component
@@ -15,9 +16,8 @@ public class UserService implements GenericService<User> {
     private UserRepository userRepository;
 
     @Override
-    public User create(User entity) {
-        User user = new User(null, "Paola", "email", "telephone", "123456");
-        return userRepository.save(user);
+    public User create(User entity) throws Exception{
+        return userRepository.save(entity);
     }
 
     @Override

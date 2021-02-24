@@ -10,7 +10,7 @@ public interface GenericService<E extends GenericEntity> {
      *
      * @return Entity created.
      */
-    E create(E entity);
+    E create(E entity) throws Exception;
 
     /**
      * Updates an entity.

@@ -3,9 +3,12 @@ package br.com.felipepedrosa.springapplication.controllers;
 import br.com.felipepedrosa.springapplication.entities.User;
 import br.com.felipepedrosa.springapplication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -26,8 +29,17 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser() {
-        return ResponseEntity.ok().body(userService.create(null));
+    public ResponseEntity<User> createUser(@RequestBody User body) throws Exception {
+        try {
+            User user = userService.create(body);
+
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(user.getId()).toUri();
+
+            return ResponseEntity.created(uri).body(user);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @GetMapping("/{id}")
