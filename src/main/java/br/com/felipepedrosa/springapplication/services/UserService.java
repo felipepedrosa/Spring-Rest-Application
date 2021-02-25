@@ -2,7 +2,9 @@ package br.com.felipepedrosa.springapplication.services;
 
 import br.com.felipepedrosa.springapplication.entities.User;
 import br.com.felipepedrosa.springapplication.repositories.UserRepository;
+import br.com.felipepedrosa.springapplication.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,6 @@ public class UserService implements GenericService<User> {
 
     @Override
     public User findById(long id) {
-        return userRepository.findById(id).get();
+        return userRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 }
